@@ -1,7 +1,4 @@
-# terraform-aliyun-ecs-cluster
-使用terraform快速在阿里云构建一个ECS集群测试环境
-
-
+[TOC]
 
 ## 一、项目介绍
 
@@ -28,7 +25,7 @@
 
 
 
-### 三、注意事项
+## 三、注意事项
 
 注意！！注意！！注意！！使用完资源后务必清理资源，以免资源保留导致持续扣费
 
@@ -48,7 +45,7 @@
 
 ## 五、创建步骤
 
-#### 1、安装terraform
+### 1、安装terraform
 
 1）登录 [Terraform官网](https://www.terraform.io/downloads.html) 下载适用于您的操作系统的程序包。
 
