@@ -20,7 +20,7 @@ resource "alicloud_vswitch" "default" {
 
 resource "alicloud_cs_serverless_kubernetes" "serverless" {
   name_prefix                    = var.name
-  version                        = 1.18
+#  version                        = 1.16
   vpc_id                         = alicloud_vpc.default.id
   vswitch_ids                    = [alicloud_vswitch.default.id]
   new_nat_gateway                = true
