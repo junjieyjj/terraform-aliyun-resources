@@ -27,13 +27,39 @@ resource "alicloud_cs_serverless_kubernetes" "serverless" {
   endpoint_public_access_enabled = true
   private_zone                   = false
   deletion_protection            = false
-  kube_config                    = "/tmp/demo-k8s/config"
-  client_cert                    = "/tmp/demo-k8s/client-cert.pem"
-  client_key                     = "/tmp/demo-k8s/client-key.pem"
-  cluster_ca_cert                = "/tmp/demo-k8s/cluster-ca-cert.pem"
+#  kube_config                    = "/d/Amway/code/terraform-aliyun-resources/aliyun-ask/key/config"
+#  client_cert                    = "/d/Amway/code/terraform-aliyun-resources/aliyun-ask/key/client-cert.pem"
+#  client_key                     = "/d/Amway/code/terraform-aliyun-resources/aliyun-ask/key/client-key.pem"
+#  cluster_ca_cert                = "/d/Amway/code/terraform-aliyun-resources/aliyun-ask/key/cluster-ca-cert.pem"
   tags = {
     "env" = "dev"
     "name" = "demo-k8s"
   }
 }
 
+resource "alicloud_nas_file_system" "default" {
+  protocol_type = "NFS"
+  storage_type  = "Performance"
+  description   = "ask-nas"
+  encrypt_type  = "1"
+}
+
+resource "alicloud_nas_access_group" "default" {
+  access_group_name        = "ask_access_group"
+  access_group_type        = "Classic"
+  description              = "ask-access-group"
+}
+
+resource "alicloud_nas_access_rule" "default" {
+  access_group_name = alicloud_nas_access_group.default.access_group_name
+  source_cidr_ip    = "10.1.0.0/21"
+  rw_access_type    = "RDWR"
+  user_access_type  = "no_squash"
+  priority          = 1
+}
+
+resource "alicloud_nas_mount_target" "default" {
+  file_system_id    = alicloud_nas_file_system.default.id
+  access_group_name = alicloud_nas_access_group.default.access_group_name
+  vswitch_id        = alicloud_vswitch.default.id
+}
