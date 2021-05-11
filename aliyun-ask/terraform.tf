@@ -23,7 +23,7 @@ resource "alicloud_cs_serverless_kubernetes" "serverless" {
 #  version                        = 1.16
   vpc_id                         = alicloud_vpc.default.id
   vswitch_ids                    = [alicloud_vswitch.default.id]
-  new_nat_gateway                = true
+  new_nat_gateway                = false
   endpoint_public_access_enabled = true
   private_zone                   = false
   deletion_protection            = false
